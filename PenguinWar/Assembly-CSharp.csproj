@@ -6,7 +6,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E1130DD4-453F-2BCE-43D0-369E2D553A66}</ProjectGuid>
+    <ProjectGuid>{38B3007E-41F6-8AB3-A3C0-4BD280A62997}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp</AssemblyName>
@@ -49,6 +49,7 @@
      <Compile Include="Assets\Script\Cam.cs" />
      <Compile Include="Assets\Script\FlagRotate.cs" />
      <Compile Include="Assets\Script\Grid.cs" />
+     <Compile Include="Assets\Script\PenguinUnit.cs" />
      <Compile Include="Assets\Script\Tile.cs" />
      <Compile Include="Assets\Script\selfDestroy.cs" />
      <Compile Include="Assets\Suriyun\Script\AnimatorController.cs" />
