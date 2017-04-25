@@ -16,7 +16,7 @@ public class PenguinUnit : MonoBehaviour
             yield return null;
             //Debug.Log("PENGUIN_IS_ALIVE");
             RaycastHit hit = GameObject.Find("Player").GetComponentInChildren<Cam>().rayHit;
-
+            // commit
             if(hit.collider == null)
             {
                 Debug.Log("OK");
