@@ -51,6 +51,7 @@
      <Compile Include="Assets\Script\Grid.cs" />
      <Compile Include="Assets\Script\PenguinUnit.cs" />
      <Compile Include="Assets\Script\Tile.cs" />
+     <Compile Include="Assets\Script\_Tile.cs" />
      <Compile Include="Assets\Script\selfDestroy.cs" />
      <Compile Include="Assets\Suriyun\Script\AnimatorController.cs" />
      <None Include="Assets\Suriyun\UnityChanShader_v1.2.1\Shader\Unitychan_chara_eye.shader" />

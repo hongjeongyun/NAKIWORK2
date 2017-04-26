@@ -14,18 +14,10 @@ public class PenguinUnit : MonoBehaviour
         while(true)
         {
             yield return null;
-            //Debug.Log("PENGUIN_IS_ALIVE");
-            RaycastHit hit = GameObject.Find("Player").GetComponentInChildren<Cam>().rayHit;
-            // commit
-            if(hit.collider == null)
+            RaycastHit hit = GameObject.Find("Player").GetComponentInChildren<Cam>().rayHit; //ok
+            if (hit.collider == this.gameObject.GetComponent<Collider>()) //ok
             {
-                Debug.Log("OK");
-            }
-
-
-            if (hit.collider == this.gameObject.GetComponent<Collider>())
-            {
-                //Debug.Log("OK");
+                Debug.Log("HIT_OK");
             }
         }
     }
