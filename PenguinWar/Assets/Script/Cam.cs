@@ -6,11 +6,16 @@ public class Cam : MonoBehaviour {
 
     public RaycastHit rayHit;
 
-    private MeshRenderer[] meshs;
+	private static MeshRenderer[] meshs;
 
-    void Start ()
+	void Awake()
+	{
+		meshs = this.GetComponentsInChildren<MeshRenderer>();
+	}
+		
+	void Start ()
     {
-        meshs = this.GetComponentsInChildren<MeshRenderer>();
+        //meshs = this.GetComponentsInChildren<MeshRenderer>();
 
         foreach (MeshRenderer m in meshs)
         {
@@ -20,7 +25,7 @@ public class Cam : MonoBehaviour {
             }
         }
 
-        StartCoroutine(myUpdate());
+        //StartCoroutine(myUpdate());
     }
 
     IEnumerator myUpdate()
@@ -33,36 +38,20 @@ public class Cam : MonoBehaviour {
 
             if (Physics.Raycast(CamRay, out rayHit))
             {
-                meshs = this.GetComponentsInChildren<MeshRenderer>();
+                //meshs = this.GetComponentsInChildren<MeshRenderer>();
 
                 foreach(MeshRenderer m in meshs )
                 {
                     if (m.tag == "Player")
                     {
                         m.material.color = Color.blue;
-
-                        if (rayHit.collider.tag == "YES")
-                        {
-                            if(Input.GetButtonDown("Fire1"))
-                            {
-                                SceneManager.LoadScene("Scene01");
-                                yield return null;
-                            }
-                        }
-                        else if (rayHit.collider.tag == "NO")
-                        {
-                            if (Input.GetButtonDown("Fire1"))
-                            {
-                                Application.Quit();
-                                yield return null;
-                            }
-                        }
-                    }
+						//StartCoroutine (Select ());
+					}
                 }
             }
             else
             {
-                meshs = this.GetComponentsInChildren<MeshRenderer>();
+                //meshs = this.GetComponentsInChildren<MeshRenderer>();
 
                 foreach (MeshRenderer m in meshs)
                 {
@@ -73,7 +62,27 @@ public class Cam : MonoBehaviour {
                 }
             }
 
-            Debug.DrawRay(CamRay.origin, CamRay.direction * 100.0f, Color.red);
+            //Debug.DrawRay(CamRay.origin, CamRay.direction * 100.0f, Color.red);
         }
     }
+
+	IEnumerator Select()
+	{
+		if (rayHit.collider.tag == "YES")
+		{
+			if(Input.GetButtonDown("Fire1"))
+			{
+				SceneManager.LoadScene("Scene01");
+				yield return null;
+			}
+		}
+		else if (rayHit.collider.tag == "NO")
+		{
+			if (Input.GetButtonDown("Fire1"))
+			{
+				Application.Quit();
+				yield return null;
+			}
+		}
+	}
 }

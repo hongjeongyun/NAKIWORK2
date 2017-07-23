@@ -1,24 +1,236 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+//using System.Linq;
 using UnityEngine;
 
-public class PenguinUnit : MonoBehaviour
+public class PenguinUnit : Astar
 {
-	void Start ()
+    public int ID;
+    public int baseTileID;
+
+    public Tile_ myTarget = null;
+    public Tile_ myBaseTile = null;
+
+    //public List<Tile_> OpenList = new List<Tile_>();
+    //HashSet<Tile_> ClosedList = new HashSet<Tile_>();
+    public List<Tile_> PathList = new List<Tile_>();
+
+    void Start ()
     {
+        this.gameObject.name = "PENGUIN" + ID.ToString();
         StartCoroutine(PenguinUnitUpdate());
-	}
+    }
+
+    private void Update()
+    {
+        if(myBaseTile && myTarget)
+            PathFinding(myBaseTile, myTarget);
+    }
+
+    //void PathFinding(Tile_ start, Tile_ target)
+    //{
+    //    //List<Tile_> OpenList = new List<Tile_>();
+    //    //HashSet<Tile_> ClosedList = new HashSet<Tile_>();
+
+    //    OpenList.Add(start); // OpenList[0] is start
+
+    //    while (OpenList.Count > 0)
+    //    {
+    //        Tile_ current = OpenList.Find(Iter => Iter.fCost == (OpenList.Min<Tile_>(I => I.fCost)));// lowest F // FirstTime Only One
+
+    //        /*
+    //        for(int i=0; i < OpenList.Count; i++)
+    //        {
+    //            if (OpenList[i].fCost < current.fCost || OpenList[i].fCost == current.fCost && OpenList[i].H < current.H)
+    //                current = OpenList[i];
+    //        }*/
+
+    //        OpenList.Remove(current);
+    //        ClosedList.Add(current);
+
+    //        if (current == myTarget)
+    //        {
+    //            RetracePath(start, target);
+    //            return;
+    //        }
+
+    //        foreach(Tile_ neibour in GetNeibours(current))
+    //        {
+    //            if(neibour.gameObject.tag != "Walkable" || ClosedList.Contains(neibour) )
+    //            {
+    //                continue;
+    //            }
+
+    //            int newMoveCost = current.G + GetG(current, neibour);
+
+    //            if (newMoveCost < neibour.G || !OpenList.Contains(neibour))
+    //            {
+    //                neibour.G = newMoveCost;
+    //                neibour.H = GetH(neibour, myTarget);
+    //                neibour.parent = current;
+
+    //                if(!OpenList.Contains(neibour))
+    //                {
+    //                    OpenList.Add(neibour);
+    //                }
+    //            }
+    //        }
+    //    }
+    //}
+
+    //public void RetracePath(Tile_ start, Tile_ end)
+    //{
+    //    Tile_ current = end;
+
+    //    while (current != start)
+    //    {
+    //        PathList.Add(current);
+    //        current = current.parent;
+    //    }
+    //    PathList.Reverse();
+
+    //    grid.path = PathList;
+    //}
+
+    //public int GetG(Tile_ A, Tile_ B)
+    //{
+    //    return (int)(Vector3.Distance(A.transform.position, B.transform.position) * 10);
+    //}
+
+    //public int GetH(Tile_ n, Tile_ t)
+    //{
+    //    return 10 * (int)(Mathf.Abs(n.transform.position.x - t.transform.position.x) + Mathf.Abs(n.transform.position.z - t.transform.position.z));
+    //} 
+    //
+
+    //private bool inBounds(List<Tile_> inputtilesAll, int targetID)
+    //    //Tile_[] inputtilesAll
+    //{
+    //    if (targetID < 0 || targetID >= inputtilesAll.Count)
+    //        return false;
+    //    else
+    //        return true;
+    //}
+
+    
+    //private bool inBounds(Tile_[] inputtilesAll, int targetID)
+    //{
+    //    if (targetID < 0 || targetID >= inputtilesAll.Length)
+    //        return false;
+    //    else
+    //        return true;
+    //}
+
+    //private bool checkTag(Tile_ checker)
+    //{
+    //    if (checker.gameObject.tag == "Walkable" || checker.gameObject.tag == "Target")
+    //        return true;
+    //    else
+    //        return false;
+    //}
+
+    //public List<Tile_> GetNeibours(Tile_ tile)
+    //{
+    //    List<Tile_> neibours = new List<Tile_>();
+
+    //    //up
+    //    if (inBounds(grid.tilesAll, tile.ID + tilesPerRow) && !OpenList.Exists(I => I.ID == grid.tilesAll[tile.ID + tilesPerRow].ID) && checkTag(grid.tilesAll[tile.ID + tilesPerRow]))
+    //        neibours.Add(grid.tilesAll[tile.ID + tilesPerRow]);
+
+    //    //low
+    //    if (inBounds(grid.tilesAll, tile.ID - tilesPerRow) && !OpenList.Exists(I => I.ID == grid.tilesAll[tile.ID - tilesPerRow].ID) && checkTag(grid.tilesAll[tile.ID - tilesPerRow]))
+    //        neibours.Add(grid.tilesAll[tile.ID - tilesPerRow]);
+
+    //    //left
+    //    if (inBounds(grid.tilesAll, tile.ID - 1) && tile.ID % tilesPerRow != 0 && !OpenList.Exists(I => I.ID == grid.tilesAll[tile.ID - 1].ID) && checkTag(grid.tilesAll[tile.ID - 1]))
+    //        neibours.Add(grid.tilesAll[tile.ID - 1]);
+
+    //    //right
+    //    if (inBounds(grid.tilesAll, tile.ID + 1) && (tile.ID + 1) % tilesPerRow != 0 && !OpenList.Exists(I => I.ID == grid.tilesAll[tile.ID + 1].ID) && checkTag(grid.tilesAll[tile.ID + 1]))
+    //        neibours.Add(grid.tilesAll[tile.ID + 1]);
+
+    //    //upRight
+    //    if (inBounds(grid.tilesAll, tile.ID + tilesPerRow + 1) && (tile.ID + 1) % tilesPerRow != 0 && !OpenList.Exists(I => I.ID == grid.tilesAll[tile.ID + tilesPerRow + 1].ID) && checkTag(grid.tilesAll[tile.ID + tilesPerRow + 1]))
+    //        neibours.Add(grid.tilesAll[tile.ID + tilesPerRow + 1]);
+
+    //    //upLeft
+    //    if (inBounds(grid.tilesAll, tile.ID + tilesPerRow - 1) && tile.ID % tilesPerRow != 0 && !OpenList.Exists(I => I.ID == grid.tilesAll[tile.ID + tilesPerRow - 1].ID) && checkTag(grid.tilesAll[tile.ID + tilesPerRow - 1]))
+    //        neibours.Add(grid.tilesAll[tile.ID + tilesPerRow - 1]);
+
+    //    //lowRight
+    //    if (inBounds(grid.tilesAll, tile.ID - tilesPerRow + 1) && (tile.ID + 1) % tilesPerRow != 0 && !OpenList.Exists(I => I.ID == grid.tilesAll[tile.ID - tilesPerRow + 1].ID) && checkTag(grid.tilesAll[tile.ID - tilesPerRow + 1]))
+    //        neibours.Add(grid.tilesAll[tile.ID - tilesPerRow + 1]);
+
+    //    //lowLeft
+    //    if (inBounds(grid.tilesAll, tile.ID - tilesPerRow - 1) && tile.ID % tilesPerRow != 0 && !OpenList.Exists(I => I.ID == grid.tilesAll[tile.ID - tilesPerRow - 1].ID) && checkTag(grid.tilesAll[tile.ID - tilesPerRow - 1]))
+    //        neibours.Add(grid.tilesAll[tile.ID - tilesPerRow - 1]);
+
+    //    return neibours;
+    //}
 
     IEnumerator PenguinUnitUpdate()
     {
         while(true)
         {
             yield return null;
+
+            if (grid.isOver == false)
+            {
+                if (Input.GetMouseButtonDown(0))
+                {
+                    grid.currentClicked = -1;
+                    Debug.Log("CurrentClicked : " + grid.currentClicked);
+                }
+            }
+            
+            else if (ID == grid.currentClicked)
+            {
+                Debug.Log("currentPenguin : " + grid.currentClicked);
+            }
+        }
+    }
+
+    private void OnDestroy()
+    {
+
+    }
+
+    private void OnMouseOver()
+    {
+        grid.isOver = true;
+
+        if (Input.GetMouseButtonDown(0))
+            grid.currentClicked = ID;    
+    }
+
+    private void OnMouseExit()
+    {
+        grid.isOver = false;
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        float dist = Vector3.Distance(other.transform.position, this.transform.position);
+
+        if (dist <= 0.05f)
+        {
+            myBaseTile = other.gameObject.GetComponent<Tile_>();
+            baseTileID = myBaseTile.ID;
+
+            if (myBaseTile)
+            {
+                Debug.Log("BaseOK");
+            }
+        }
+    }
+
+    void Temp()
+    {
+            /*
             RaycastHit hit = GameObject.Find("Player").GetComponentInChildren<Cam>().rayHit; //ok
             if (hit.collider == this.gameObject.GetComponent<Collider>()) //ok
             {
-                Debug.Log("HIT_OK");
-            }
-        }
+                //Debug.Log("HIT_OK");
+            }*/
     }
 }

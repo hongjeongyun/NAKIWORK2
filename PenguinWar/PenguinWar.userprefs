@@ -1,11 +1,12 @@
 ﻿<Properties StartupItem="Assembly-CSharp.csproj">
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="Unity.Instance.Unity Editor" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Tile.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\Script\Azit.cs">
     <Files>
       <File FileName="Assets\Script\Grid.cs" Line="1" Column="1" />
-      <File FileName="Assets\Script\Cam.cs" Line="10" Column="5" />
-      <File FileName="Assets\Script\Tile.cs" Line="20" Column="5" />
-      <File FileName="Assets\Script\PenguinUnit.cs" Line="17" Column="43" />
+      <File FileName="Assets\Script\Cam.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Tile.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\PenguinUnit.cs" Line="1" Column="1" />
+      <File FileName="Assets\Script\Azit.cs" Line="28" Column="18" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
